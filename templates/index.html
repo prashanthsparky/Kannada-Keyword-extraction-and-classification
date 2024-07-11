@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kannada Keyword Extractor</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            color: #555;
+        }
+
+        textarea,
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 5px 0;
+            padding: 5px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        h2 {
+            color: #4caf50;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kannada Keyword Extractor</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        <label for="manual_text">Enter Kannada Text:</label>
+        <textarea name="manual_text" id="manual_text" rows="4" cols="50"></textarea>
+        <br>
+
+        <label for="file">Upload Document (Allowed formats: .txt, .pdf, .docx):</label>
+        <input type="file" name="file" id="file" accept=".txt, .pdf, .docx">
+        <br>
+
+        <button type="submit">Extract Keywords</button>
+    </form>
+
+    {% if kannada_keywords %}
+        <h2>Extracted Keywords:</h2>
+        <ul>
+            {% for keyword in kannada_keywords %}
+                <li>{{ keyword }}</li>
+            {% endfor %}
+        </ul>
+
+        {% if word_output %}
+            <h2>Download Word:</h2>
+            <a href="{{ url_for('download_word', word_output=word_output) }}" download>Download Word</a>
+        {% endif %}
+
+        {% if pdf_output %}
+            <h2>Download PDF:</h2>
+            <a href="{{ url_for('download_pdf', pdf_output=pdf_output) }}" download>Download PDF</a>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
